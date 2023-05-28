@@ -2,27 +2,30 @@ import java.util.Scanner;
 
 public class UserInput {
     public static void main(String args[]) {
-        // Enter data using BufferReader
-        System.out.println("Rock, Paper or Scissors?");
         Boolean properInput = false;
-        String choice = "t";
+        String choice = "";
+        Scanner scanner = new Scanner(System.in);
         while (!properInput) {
-            Scanner scanner = new Scanner(System.in);
-            if(scanner.hasNextLine()){
-                choice = scanner.nextLine();
-            }
-            System.out.println(choice);
-            System.out.println(properInput);
-            scanner.close();
-            if (choice.toLowerCase() == "rock") {
+            System.out.println("Rock, Paper or Scissors?");
+            choice = scanner.nextLine().toLowerCase();
+            if (choice.equals("rock")) {
                 properInput = true;
-            } else if (choice.toLowerCase() == "paper") {
+            } else if (choice.equals("paper")) {
                 properInput = true;
-            } else if (choice.toLowerCase() == "scissors") {
+            } else if (choice.equals("scissors")) {
                 properInput = true;
             }
         }
-    
+        scanner.close();
+        String[] computerMoves = {"rock", "paper", "scissors"};
+        int randomMove = (int) Math.floor(Math.random() * 3);
+        String computerMove = computerMoves[randomMove];
+        if (computerMove.equals(choice)) {
+            System.out.println("Tie! You both chose %s");
+        }
+
+
         System.out.println(choice);
+        System.out.println(computerMove);
     }
 }
