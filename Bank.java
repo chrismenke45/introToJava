@@ -1,4 +1,6 @@
 import static java.lang.System.out;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bank {
@@ -18,17 +20,19 @@ public class Bank {
         }
 
         public void withdraw(int amount) {
-            if(balance > amount){
+            if (balance > amount) {
                 balance -= amount;
             } else {
                 out.println("You cannot withdraw more than you existing balance");
             }
         }
+
         public void deposit(int amount) {
             balance += amount;
         }
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Account account;
         if (args.length > 0) {
             account = new Account(Integer.parseInt(args[0]));
@@ -48,13 +52,35 @@ public class Bank {
                 open = false;
             } else if (option.equals("deposit") || option.equals("2")) {
                 out.println("How much would you like to desposit?");
-                option = scanner.nextLine().toLowerCase();
-                account.deposit(Integer.parseInt(option));
+                boolean gotInt = false;
+                int amount = 0;
+                while (!gotInt) {
+                    try {
+                        amount = scanner.nextInt();
+                        gotInt = true;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please enter an integer");
+                    } finally {
+                        scanner.nextLine();
+                    }
+                }
+                account.deposit(amount);
                 out.println("Your balance is now: $" + account.getBalance());
             } else if (option.equals("withdraw") || option.equals("3")) {
                 out.println("How much would you like to withdraw?");
-                option = scanner.nextLine().toLowerCase();
-                account.withdraw(Integer.parseInt(option));
+                boolean gotInt = false;
+                int amount = 0;
+                while (!gotInt) {
+                    try {
+                        amount = scanner.nextInt();
+                        gotInt = true;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please enter an integer");
+                    } finally {
+                        scanner.nextLine();
+                    }
+                }
+                account.withdraw(amount);
                 out.println("Your balance is now: $" + account.getBalance());
             } else {
                 out.println("I didn't understand that. Please select one of the options.");
