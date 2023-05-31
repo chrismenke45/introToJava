@@ -32,6 +32,22 @@ public class Bank {
         }
     }
 
+    public static int getInt(Scanner scan) {
+        boolean gotInt = false;
+        int amount = 0;
+        while (!gotInt) {
+            try {
+                amount = scan.nextInt();
+                gotInt = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an integer");
+            } finally {
+                scan.nextLine();
+            }
+        }
+        return amount;
+    }
+
     public static void main(String[] args) {
         Account account;
         if (args.length > 0) {
@@ -52,34 +68,12 @@ public class Bank {
                 open = false;
             } else if (option.equals("deposit") || option.equals("2")) {
                 out.println("How much would you like to desposit?");
-                boolean gotInt = false;
-                int amount = 0;
-                while (!gotInt) {
-                    try {
-                        amount = scanner.nextInt();
-                        gotInt = true;
-                    } catch (InputMismatchException e) {
-                        System.out.println("Please enter an integer");
-                    } finally {
-                        scanner.nextLine();
-                    }
-                }
+                int amount = getInt(scanner);
                 account.deposit(amount);
                 out.println("Your balance is now: $" + account.getBalance());
             } else if (option.equals("withdraw") || option.equals("3")) {
                 out.println("How much would you like to withdraw?");
-                boolean gotInt = false;
-                int amount = 0;
-                while (!gotInt) {
-                    try {
-                        amount = scanner.nextInt();
-                        gotInt = true;
-                    } catch (InputMismatchException e) {
-                        System.out.println("Please enter an integer");
-                    } finally {
-                        scanner.nextLine();
-                    }
-                }
+                int amount = getInt(scanner);
                 account.withdraw(amount);
                 out.println("Your balance is now: $" + account.getBalance());
             } else {
